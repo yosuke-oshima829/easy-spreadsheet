@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import re
 import string
-from typing import List
+from typing import Any, List
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
@@ -17,22 +17,26 @@ ROW_PATTERN = r"[0-9]{1,}"
 
 @dataclass
 class Cell:
-    value: str
-    row_pos: str
+    ###
+    # col_pos: A, B, C, ..., AA, AB, AC
+    # row_pos: 1, 2, 3, ...
+    ###
+    value: Any
     col_pos: str
+    row_pos: str
 
 
 @dataclass
 class Row:
     ###
-    # row_pos: 1, 2, 3, ...
     # col_start_pos: A, B, C, ..., AA, AB, AC
     # col_end_pos: X, Y, Z, ..., AX, AY, AZ
+    # row_pos: 1, 2, 3, ...
     ###
     cells: List[Cell]
-    row_pos: str
     col_start_pos: str
     col_end_pos: str
+    row_pos: str
 
 
 @dataclass
