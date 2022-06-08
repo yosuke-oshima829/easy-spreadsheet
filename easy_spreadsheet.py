@@ -146,7 +146,6 @@ def read_spread_sheet(file_id: str, range: str):
 
 
 def append_spread_sheet(file_id: str, range: str, data_list: list):
-    # range_name = "A7"
     spreadsheets_service = get_spreadsheets_service()
     resource = {"majorDimension": "ROWS", "values": data_list}
     response = (
