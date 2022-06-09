@@ -25,6 +25,12 @@ class Cell:
     col_pos: str
     row_pos: str
 
+    def __hash__(self):
+        return hash(self.value)
+
+    def __eq__(self, other):
+        return self.col_pos == other.col_pos and self.row_pos == other.row_pos
+
 
 @dataclass
 class Row:
@@ -38,34 +44,46 @@ class Row:
     col_end_pos: str
     row_pos: str
 
+    def __getitem__(self, i: int):
+        return self.cells[i]
+
 
 @dataclass
 class Rows:
     rows: List[Row]
 
-
-@dataclass
-class Col:
-    ###
-    # col_pos: A, B, C, ...
-    # row_start_pos: 1, 2, 3, ..., 100, 101, 102
-    # row_end_pos: 48, 49, 50, ..., 148, 149, 150
-    ###
-    cells: List[Cell]
-    col_pos: str
-    row_start_pos: str
-    row_end_pos: str
+    def __getitem__(self, i: int):
+        return self.rows[i]
 
 
 @dataclass
-class Cols:
-    cols: List[Col]
+class BodyRow:
+    header_row: Row
+    body_row: Row
+
+    def hoge():
+        zip()
+
+    def __iter__(self):
+        ...
+
+
+@dataclass
+class Body:
+    header_row: Row
+    body_rows: Rows
+
+    def __getitem__(self, i: int):
+        return BodyRow(self.header_row, self.body_rows[i])
 
 
 @dataclass
 class SpreadSheed:
-    header_row: int
-    body_start_row: int
+    header_row: Row
+    body_rows: Rows
+
+    def body(self):
+        return Body(header_row=self.header_row, body_rows=self.body_rows)
 
 
 @dataclass
